@@ -2,11 +2,14 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { fetchQuestions } from '../store/action-creaters/question'
 import { useTypeSelector } from '../hook/useTypeSelector'
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import SingleQuestion from './SingleQuestion'
+import '../.././src/index.css'
 
 const QuestionList: React.FC = () => {
     const {questions, error, loading} = useTypeSelector(state => state.question)
     const dispatch = useDispatch()
+
+    // console.log(questions);
 
     useEffect(() => {
         dispatch(fetchQuestions())
@@ -20,20 +23,14 @@ const QuestionList: React.FC = () => {
     }
     
     return (
-        <div>
+        <div className='container'>
             <h3>questions and answers about login</h3>
             <section className='info'>
-                <article className='question'>
-                    <header>
-                        <h4> {} </h4>
-                    </header>
-            {questions.map()
-                
-            }
-                owInfo && <p>{}</p> }
-                </article>/>
+                {questions.map((question) => {
+                    return <SingleQuestion key={question.id} {...question} />
+                    })  
+                }
             </section>
-        )
         </div>
     )
 }
